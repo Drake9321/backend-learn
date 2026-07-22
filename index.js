@@ -1,12 +1,15 @@
-import http from 'http';
+import express from 'express';
+import dotenv from 'dotenv';
 
-const port =5000;
+dotenv.config();
 
-const server = http.createServer((req,res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\n');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
 });
-server.listen(port, () => {
-    console.log(`Server running at ports ${port}`);
+
+const PORT = Number(process.env.PORT) || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
