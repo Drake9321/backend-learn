@@ -41,6 +41,13 @@ let users = [
     "email": "ethan.davis@example.com",
     "department": "Information Technology",
     "salary": 91000
+  },
+  {
+    "id": 6,
+    "name": "Mayank Davis",
+    "email": "mayank@example.com",
+    "department": "Information Technology",
+    "salary": 100000
   }
 ];
 
