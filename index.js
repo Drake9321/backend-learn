@@ -44,7 +44,7 @@ let users = [
   },
   {
     "id": 6,
-    "name": "Mayank Davis",
+    "name": "Mayank Srivastava",
     "email": "mayank@example.com",
     "department": "Information Technology",
     "salary": 100000
