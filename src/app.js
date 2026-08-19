@@ -1,79 +1,16 @@
-import express from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import mongoose from "mongoose";
+import express from "express";
 
 const app = express();
-app.use(express.json());
+const dbUrl = process.env.MONGO_URI || "mongodb://localhost:27017/mydatabase";
 
-let users = [
-  {
-    "id": 1,
-    "name": "Alice Johnson",
-    "email": "alice.johnson@example.com",
-    "department": "Engineering",
-    "salary": 85000
-  },
-  {
-    "id": 2,
-    "name": "Bob Smith",
-    "email": "bob.smith@example.com",
-    "department": "Human Resources",
-    "salary": 65000
-  },
-  {
-    "id": 3,
-    "name": "Charlie Brown",
-    "email": "charlie.brown@example.com",
-    "department": "Finance",
-    "salary": 78000
-  },
-  {
-    "id": 4,
-    "name": "Diana Miller",
-    "email": "diana.miller@example.com",
-    "department": "Marketing",
-    "salary": 72000
-  },
-  {
-    "id": 5,
-    "name": "Ethan Davis",
-    "email": "ethan.davis@example.com",
-    "department": "Information Technology",
-    "salary": 91000
-  },
-  {
-    "id": 6,
-    "name": "Mayank Srivastava",
-    "email": "mayank@example.com",
-    "department": "Information Technology",
-    "salary": 100000
-  },
-  {
-    "id": 7,
-    "name": "Shivank Srivastava",
-    "email": "shivank@example.com",
-    "department": "Information Technology",
-    "salary": 100000
-  }
-];
+mongoose.connect(dbUrl);
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+const db = mongoose.connection;
 
-app.get('/api/users', (req, res) => {
-  res.json(users);
-});
-
-app.get('/api/users/:id', (req, res) => {
-  const userId = parseInt(req.params.id);
-  const user = users.find(u => u.id === userId);
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404).json({ message: 'User not found' });
-  }
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB");
 });
 
 export default app;
