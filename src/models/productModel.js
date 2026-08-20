@@ -3,19 +3,25 @@ import mongoose from "mongoose";
 const productSchema = new mongoose.Schema({
   product_name: {
     type: String,
-    required: true
+    required: [true, "Product name is required"]
   },
   product_price: {
     type: Number,
-    required: true
+    required: [true, "Product price is required"],
+    validate: {
+        validator: function(value) {
+            return value >= 0;
+        },
+        message: "Product price must be a positive number"
+    }
   },
   product_description: {
     type: String,
-    required: true
+    required: [true, "Product description is required"]
   },
   isInStock: {
     type: Boolean,
-    required: true
+    default: true
   },
 },{ timestamps: true});
 
